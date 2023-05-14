@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("explab")
+@RequestMapping("/explab")
 @CrossOrigin(origins = {"https://frontendjnla.web.app/", "http://localhost:4200"})
 public class CExperiencia {
     @Autowired
@@ -55,13 +55,13 @@ public class CExperiencia {
     
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody dtoExperiencia dtoexp){
-        if(StringUtils.isBlank(dtoexp.getNombreE()))
+        if(StringUtils.isBlank(dtoexp.getNombreExp()))
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         
-        if(sExperiencia.existsByNombreE(dtoexp.getNombreE()))
+        if(sExperiencia.existsByNombreExp(dtoexp.getNombreExp()))
             return new ResponseEntity(new Mensaje("Esa experiencia ya existe"), HttpStatus.BAD_REQUEST);
         
-        Experiencia experiencia = new Experiencia(dtoexp.getNombreE(), dtoexp.getTrabajoE(), dtoexp.getDescripcionE());
+        Experiencia experiencia = new Experiencia(dtoexp.getNombreExp(), dtoexp.getTrabajoExp(), dtoexp.getDescripcionExp(), dtoexp.getTiempoExp(), dtoexp.getImgExp());
         sExperiencia.save(experiencia);
         
         return new ResponseEntity(new Mensaje("Experiencia agregada"), HttpStatus.OK);
@@ -73,16 +73,18 @@ public class CExperiencia {
         if(!sExperiencia.existsById(id))
             return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
         //Compara nombre de experiencias
-        if(sExperiencia.existsByNombreE(dtoexp.getNombreE()) && sExperiencia.getByNombreE(dtoexp.getNombreE()).get().getId() != id)
+        if(sExperiencia.existsByNombreExp(dtoexp.getNombreExp()) && sExperiencia.getByNombreExp(dtoexp.getNombreExp()).get().getId() != id)
             return new ResponseEntity(new Mensaje("Esa experiencia ya existe"), HttpStatus.BAD_REQUEST);
         //No puede estar vacio
-        if(StringUtils.isBlank(dtoexp.getNombreE()))
+        if(StringUtils.isBlank(dtoexp.getNombreExp()))
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         
         Experiencia experiencia = sExperiencia.getOne(id).get();
-        experiencia.setNombreE(dtoexp.getNombreE());
-        experiencia.setDescripcionE((dtoexp.getDescripcionE()));
-        experiencia.setTrabajoE(dtoexp.getTrabajoE());
+        experiencia.setNombreExp(dtoexp.getNombreExp());
+        experiencia.setDescripcionExp((dtoexp.getDescripcionExp()));
+        experiencia.setTrabajoExp(dtoexp.getTrabajoExp());
+        experiencia.setTiempoExp(dtoexp.getTiempoExp());
+        experiencia.setImgExp(dtoexp.getImgExp());
         
         sExperiencia.save(experiencia);
         return new ResponseEntity(new Mensaje("Experiencia actualizada"), HttpStatus.OK);

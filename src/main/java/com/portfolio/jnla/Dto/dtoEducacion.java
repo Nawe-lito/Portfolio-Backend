@@ -6,23 +6,27 @@ package com.portfolio.jnla.Dto;
 
 import javax.validation.constraints.NotBlank;
 
-
 public class dtoEducacion {
+
     @NotBlank
     private String nombreE;
     @NotBlank
     private String descripcionE;
+    private String imgE;
+    @NotBlank
+    private String tiempoE;
 
     //Contructores
     public dtoEducacion() {
     }
 
-    public dtoEducacion(String nombreE, String descripcionE) {
+    public dtoEducacion(String nombreE, String descripcionE, String imgE, String tiempoE) {
         this.nombreE = nombreE;
         this.descripcionE = descripcionE;
+        this.imgE = imgE;
+        this.tiempoE = tiempoE;
     }
 
-    //Getters y Setters
     public String getNombreE() {
         return nombreE;
     }
@@ -38,6 +42,20 @@ public class dtoEducacion {
     public void setDescripcionE(String descripcionE) {
         this.descripcionE = descripcionE;
     }
-    
-    
+
+    public String getImgE() {
+        return imgE;
+    }
+
+    public void setImgE(String imgE) {
+        this.imgE = imgE;
+    }
+
+    public String getTiempoE() {
+        return tiempoE;
+    }
+
+    public void setTiempoE(String tiempoE) {
+        this.tiempoE = tiempoE;
+    }
 }

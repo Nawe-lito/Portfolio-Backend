@@ -8,25 +8,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
-@Entity 
+@Entity
 public class Educacion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nombreE;
     private String descripcionE;
+    @Size(min = 1, max = 250, message = "no cumple con longitud")
+    private String imgE;
+    private String tiempoE;
 
-    //Constructores
     public Educacion() {
     }
 
-    public Educacion(String nombreE, String descripcionE) {
+    public Educacion(String nombreE, String descripcionE, String imgE, String tiempoE) {
         this.nombreE = nombreE;
         this.descripcionE = descripcionE;
+        this.imgE = imgE;
+        this.tiempoE = tiempoE;
     }
 
-    //Getters y Setters
     public int getId() {
         return id;
     }
@@ -50,6 +55,22 @@ public class Educacion {
     public void setDescripcionE(String descripcionE) {
         this.descripcionE = descripcionE;
     }
-    
+
+    public String getImgE() {
+        return imgE;
+    }
+
+    public void setImgE(String imgE) {
+        this.imgE = imgE;
+    }
+
+    public String getTiempoE() {
+        return tiempoE;
+    }
+
+    public void setTiempoE(String tiempoE) {
+        this.tiempoE = tiempoE;
+    }
+
     
 }
